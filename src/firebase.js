@@ -1,17 +1,14 @@
 import { initializeApp } from "firebase/app";
 import {
-  ApplicationVerifier,
   browserSessionPersistence,
   getAuth,
   indexedDBLocalPersistence,
-  NextOrObserver,
   onAuthStateChanged,
   RecaptchaVerifier,
   setPersistence,
   signInWithCustomToken,
   signInWithPhoneNumber,
   signOut,
-  User,
 } from "firebase/auth";
 import {
   getDownloadURL,
@@ -20,27 +17,16 @@ import {
   ref,
   uploadBytes,
 } from "firebase/storage";
-import {
-  AnalyticsCallOptions,
-  CustomEventName,
-  getAnalytics,
-  logEvent,
-  isSupported,
-  Analytics,
-  setUserId,
-  setUserProperties
-} from "firebase/analytics";
 
 // declare const window: any;
 
 const config = {
-  apiKey: "AIzaSyDcpuWUbQCuxchEr17Zj-op9dtpSHWb9cQ",
-  authDomain: "dev-managesome.firebaseapp.com",
-  projectId: "dev-managesome",
-  storageBucket: "dev-managesome.appspot.com",
-  messagingSenderId: "44063547045",
-  appId: "1:44063547045:web:c943fb400ccc3f1942f74c",
-  measurementId: "G-5LPNBYCL5E",
+  apiKey: "AIzaSyBs-pxxCqj5Qjp7aHjyqO1SG1k2GRUuQCo",
+  authDomain: "project-payroll-fb247.firebaseapp.com",
+  projectId: "project-payroll-fb247",
+  storageBucket: "project-payroll-fb247.appspot.com",
+  messagingSenderId: "167662014094",
+  appId: "1:167662014094:web:1cb6f234c398ca01a743df",
 };
 
 // Initialize Firebase
@@ -88,26 +74,15 @@ export function firebaseSignOut() {
 //     return linkWithCredential(auth.currentUser as User, credential);
 // }
 
-export function firebaseGetRecaptchaVerifier(
-  refElem,
-  callback,
-  expCallback
-) {
-  return new RecaptchaVerifier(
-    auth,
-    refElem,
-    {
-      size: "invisible",
-      callback,
-      "expired-callback": expCallback,
-    },
-  );
+export function firebaseGetRecaptchaVerifier(refElem, callback, expCallback) {
+  return new RecaptchaVerifier(auth, refElem, {
+    size: "invisible",
+    callback,
+    "expired-callback": expCallback,
+  });
 }
 
-export function firebaseSignInWithContact(
-  phoneNumber,
-  appVerifier
-) {
+export function firebaseSignInWithContact(phoneNumber, appVerifier) {
   return signInWithPhoneNumber(auth, phoneNumber, appVerifier);
 }
 
@@ -145,18 +120,11 @@ export async function uploadImageToStorage(path, file) {
   return url.toString();
 }
 
-export async function listAllFiles(
-  path,
-  maxResults = 50,
-  nextPageToken
-) {
+export async function listAllFiles(path, maxResults = 50, nextPageToken) {
   const listRef = ref(storage, path);
   const page = await list(listRef, { maxResults, pageToken: nextPageToken });
   return page;
 }
-
-
-
 
 // ======================================================>>>Analytics<<<======================================================
 // let analytics = null;
